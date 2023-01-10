@@ -36,6 +36,11 @@ Questo fa sì che un utente malevolo, Cindy, presente sul canale possa leggere s
 </div>
 
 La prima operazione che Alice effettua è la codifica in 7 bit di ogni carattere del messaggio coperto. <br>
+<div align="center">
+<img src="https://github.com/mariocuomo/covert-timing-channel/blob/main/imgs/7bitascii.png">
+</div>
 
+A questo punto il messaggio coperto è rappresentato da una stringa di bit e che Alice trasmette sul canale. <br>
+I due interlocutori sono d'accordo sulla convenzione da utilizzare: se Alice vuole vuole trasmettere uno '0' attende un tempo _x_ prima di inviare il successivo pacchetto; se vuole trasmettere un '1' attende un tempo _y_. Il contenuto dei pacchetti inviati sono i caratteri del messaggio coprente. 
 
 
