@@ -1,7 +1,7 @@
 # Covert Timing Channel (CTC)
 
 Questo repository mostra come sia possibile implementare un semplice Covert Timing Channel in Python. <br>
-Inoltre, è presente un lab [kathara](https://www.kathara.org) - un tool per l'emulazione di reti di calcolatori - per verificarne il funzionamento. <br>
+Inoltre, è presente un lab [kathará](https://www.kathara.org) - un tool per l'emulazione di reti di calcolatori - per verificarne il funzionamento. <br>
 Il progetto è di supporto al mio lavoro di tesi per la laurea Magistrale in Ingegneria Informatica all'[Universita Degli Studi Roma Tre](https://www.uniroma3.it/).
 
 ### Covert Channel
@@ -47,3 +47,7 @@ I due interlocutori sono d'accordo sulla convenzione da utilizzare: se Alice vuo
 <img src="https://github.com/mariocuomo/covert-timing-channel/blob/main/imgs/covertmessage.png">
 </div>
 
+### Kathará
+<div align="center">
+<img src="https://github.com/mariocuomo/covert-timing-channel/blob/main/imgs/lan-schema.png">
+</div>
