@@ -7,7 +7,7 @@ Il progetto è di supporto al mio lavoro di tesi per la laurea Magistrale in Ing
 ### Covert Channel
 Un Canale Coperto è un qualsiasi sistema di comunicazione che permette il trasferimento di informazione tra due o più entità sfruttando caratteristiche del sistema che non sono utilizzate a tale scopo. Data la natura del canale stesso, essi risultano essere difficilmente identificabili. In questo scenario i Covert Channel (CC) sono largamente utilizzati sia per inviare traffico legittimo che si vuole tenere nascosto, sia per condividere informazioni malevoli da parte di attaccanti.
 
-I CC possono essere divisi in due macrocategorie
+I CC possono essere divisi in due macrocategorie.
 
 - _Covert Storage Channel_ <br>
 Questi canali sono creati scrivendo informazioni su uno storage che successivamente sarà letto dal ricevente. <br>
