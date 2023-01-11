@@ -1,6 +1,6 @@
 # Covert Timing Channel (CTC)
 
-Questo repository mostra come sia possibile implementare un semplice Covert Timing Channel in Python. <br>
+Questo repository mostra come sia possibile implementare un semplice Covert Timing Channel in python3. <br>
 Inoltre, è presente un lab [kathará](https://www.kathara.org) - un tool per l'emulazione di reti di calcolatori - per verificarne il funzionamento. <br>
 Il progetto è di supporto al mio lavoro di tesi per la laurea Magistrale in Ingegneria Informatica all'[Universita Degli Studi Roma Tre](https://www.uniroma3.it/).
 
@@ -48,6 +48,45 @@ I due interlocutori sono d'accordo sulla convenzione da utilizzare: se Alice vuo
 </div>
 
 ### Kathará
+Nella cartella [kathara lab](https://github.com/mariocuomo/covert-timing-channel/tree/main/kathara%20lab) è realizzato un lab kathara composto da 3 macchine sullo spazio di indirizzamento 195.11.14.0/24 come illustrato in figura.
+
 <div align="center">
 <img src="https://github.com/mariocuomo/covert-timing-channel/blob/main/imgs/lan-schema.png">
 </div>
+
+Alice è un server che si mette in ascolto in attesa di una connessione. <br>
+Bob è un client che si connette sulla porta 1337 del server. <br>
+Ricevuta una connessione, il server invia in CTC alcuni messaggi al client che ricostruisce. <br>
+Gli script python3 sono presenti nelle cartelle ```*/var/script/```
+
+**PSEUDOCODICE FUNZIONAMENTO SERVER**
+``` Python
+WHILE socketaperta:
+  #metti in ascolto il server sulla in attesa di una connessione, e accettala all'arrivo
+  server.listen(...)
+
+  while ancoraQualcosaDaDire:
+     #genera un messaggio
+     msg = generaMessaggio()
+     
+     #codifica il messaggio per il CTC e mandalo al client
+     codificaEMandaMessaggio(msg)
+```
+
+
+**PSEUDOCODICE FUNZIONAMENTO CLIENT**
+``` Python
+WHILE socketaperta:
+  #invia richiesta di connessione al server e rimani in attesa dell'accettazione
+  client.connect(...)
+
+  while serverNonHaChiusoConnessione:
+     #recupera i pacchetti relativi al messaggio
+     pacchetti = recuperaPacchetti()
+     
+     #costruisci stringa binaria considerando il tempo di interarrivo dei pacchetti
+     stringa_binaria = analizzaInterarrivoDeiPacchetti(pacchetti)
+     
+     #recupera il messaggio del server
+     messaggio = conversioneInStringa(stringa_binaria) 
+```
