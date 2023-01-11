@@ -90,3 +90,5 @@ WHILE socketaperta:
      #recupera il messaggio del server
      messaggio = conversioneInStringa(stringa_binaria) 
 ```
+
+Il mio lavoro di tesi si concentra sulla realizzazione di modelli di Intelligenza Artificiale (ML e DL) per l'identificazione dei CTC.
