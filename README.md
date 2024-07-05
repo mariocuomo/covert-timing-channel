@@ -1,94 +1,95 @@
 # Covert Timing Channel (CTC)
 
-Questo repository mostra come sia possibile implementare un semplice Covert Timing Channel in python3. <br>
-Inoltre, è presente un lab [kathará](https://www.kathara.org) - un tool per l'emulazione di reti di calcolatori - per verificarne il funzionamento. <br>
-Il progetto è di supporto al mio lavoro di tesi per la laurea Magistrale in Ingegneria Informatica all'[Universita Degli Studi Roma Tre](https://www.uniroma3.it/).
+This repository contains a simple Covert Timing Channel Proof Of Concept - implemented in python3. <br>
+Furthermore, there is a lab [kathará](https://www.kathara.org) - a tool for emulating computer networks - to verify its functioning. <br>
+The project supported my thesis work for the Master's degree in Computer Engineering at the [Universita Degli Studi Roma Tre](https://www.uniroma3.it/).
 
 ### Covert Channel
-Un Canale Coperto è un qualsiasi sistema di comunicazione che permette il trasferimento di informazione tra due o più entità sfruttando caratteristiche del sistema che non sono utilizzate a tale scopo. Data la natura del canale stesso, essi risultano essere difficilmente identificabili. In questo scenario i Covert Channel (CC) sono largamente utilizzati sia per inviare traffico legittimo che si vuole tenere nascosto, sia per condividere informazioni malevoli da parte di attaccanti.
+A Covert Channel is any communication system that allows the transfer of information between two or more entities by exploiting characteristics of the system that are not used for this purpose. Given the nature of the channel itself, they are difficult to identify. In this scenario, Covert Channels (CC) are widely used both to send legitimate traffic that needs to be kept hidden and to share malicious information by attackers too.
 
-I CC possono essere divisi in due macrocategorie.
+CCs can be divided into two macro categories.
 
 - _Covert Storage Channel_ <br>
-Questi canali sono creati scrivendo informazioni su uno storage che successivamente sarà letto dal ricevente. <br>
-Un esempio di utilizzo è la codifica delle informazioni nei campi dei segmenti TCP.
+These kind of channels are created by inserting information into storage which will subsequently be read by the receiver. <br>
+An example of use is encoding information in TCP segment fields.
 - _Covert Timing Channel_ <br>
-Questi canali sono creati modulano le informazioni nel tempo. <br>
-Un esempio di utilizzo è la variazione del tempo di interarrivo dei pacchetti per codificare il messaggio da inviare.
+These kind of channels are created by modulating information over time. <br>
+An example of use is the variation of the interarrival time of the packets to encode the message to be sent.
 
-Una lettura interessante a riguardo. <br>
+An interesting read about it. <br>
 > J. Millen, "20 years of covert channel modeling and analysis," Proceedings of the 1999 IEEE Symposium on Security and Privacy (Cat. No.99CB36344), Oakland, CA, USA, 1999, pp. 113-114, doi: 10.1109/SECPRI.1999.766906.
 
 
 ### Covert Timing Channel (CTC)
-Una semplice implementazione di Covert Timing Channel può essere la seguente. <br>
-Si immagini uno scenario in cui sono presenti due interlocutori, Alice e Bob, che instaurano una connessione TCP. <br>
-Alice vuole inviare un messaggio in CTC a Bob: per farlo, codifica il messaggio in dei tempi di interarrivo tra pacchetti relativi a una comunicazione coprente.
+A simple implementation of Covert Timing Channel can be as follows. <br>
+Imagine a scenario in which there are two interlocutors, Alice and Bob, who establish a TCP connection. <br>
+Alice wants to send a message in CTC to Bob: to do so, she encodes the message in interarrival times between packets relating to a covering communication.
 
-Sia il messaggio coperto la stringa "*addio*". <br>
-Sia il messaggio coprente la stringa "*come stai?*". <br>
-Alice divide il messaggio coprente in più pacchetti che invia a intervalli di tempo diversi. <br>
-Bob ricevendo i pacchetti e analizzando i tempi di interarrivo riesce a ricostruire il messaggio coperto. <br>
-Questo fa sì che un utente malevolo, Cindy, presente sul canale possa leggere solo il messaggio coprente e non venire a conoscenza di una comunicazione nascosta.  
+Let the covered message be the string "*addio*". <br>
+Let the covering message be the string "*come stai?*". <br>
+Alice divides the blanket message into multiple packets that she sends at different time intervals. <br>
+Bob, by receiving the packets and analyzing the interarrival times, is able to reconstruct the covered message. <br>
+This means that a malicious user, Cindy, present on the channel can only read the covert message and not become aware of a hidden communication.
 
 <div align="center">
 <img src="https://github.com/mariocuomo/covert-timing-channel/blob/main/imgs/ctc-schema.png">
 </div>
 
-La prima operazione che Alice effettua è la codifica in 7 bit di ogni carattere del messaggio coperto. <br>
+The first operation that Alice performs is the 7-bit encoding of each character of the covered message. <br>
 <div align="center">
 <img src="https://github.com/mariocuomo/covert-timing-channel/blob/main/imgs/7bitascii.png">
 </div>
 
-A questo punto il messaggio coperto è rappresentato da una stringa di bit - 1100001(a) 1100100(d) 1100100(d) 1101001(i) 1101111(o) - e che Alice dovrà trasmettere sul canale codificandola nei tempi di interarrivo. <br>
-I due interlocutori sono d'accordo sulla convenzione da utilizzare: se Alice vuole trasmettere uno '0' attenderà un tempo _x_ prima di inviare il successivo pacchetto; se vuole trasmettere un '1' invece attenderà un tempo _y_. Il contenuto dei pacchetti inviati sono i caratteri del messaggio coprente per non destare sospetti. <br>
+At this point the covered message is represented by a string of bits - 1100001(a) 1100100(d) 1100100(d) 1101001(i) 1101111(o) - which Alice will have to transmit on the channel by encoding it in the interarrival times. <br>
+The two interlocutors agree on the convention to use: if Alice wants to transmit a '0' she will wait _x_ time before sending the next packet; if she wants to send a '1' she will instead wait a time _y_. The contents of the packets sent are the characters of the covert message so as not to arouse suspicion. <br>
 
 <div align="center">
 <img src="https://github.com/mariocuomo/covert-timing-channel/blob/main/imgs/covertmessage.png">
 </div>
 
 ### Kathará
-Nella cartella [kathara lab](https://github.com/mariocuomo/covert-timing-channel/tree/main/kathara%20lab) è realizzato un lab kathara composto da 3 macchine sullo spazio di indirizzamento 195.11.14.0/24 come illustrato in figura.
+In the folder [kathara lab](https://github.com/mariocuomo/covert-timing-channel/tree/main/kathara%20lab) a kathara lab composed of 3 machines on the address space 195.11.14.0/24 is created as illustrated in the figure.
 
 <div align="center">
 <img src="https://github.com/mariocuomo/covert-timing-channel/blob/main/imgs/lan-schema.png">
 </div>
 
-Alice è un server che si mette in ascolto in attesa di una connessione. <br>
-Bob è un client che si connette sulla porta 1337 del server. <br>
-Ricevuta una connessione, il server invia in CTC alcuni messaggi al client che ricostruisce. <br>
-Gli script python3 sono presenti nelle cartelle ```*/var/script/```
+Alice is a server that listens for a connection. <br>
+Bob is a client connecting on port 1337 of the server. <br>
+Once a connection has been received, the server sends some messages in CTC to the client which reconstructs it. <br>
+The python3 scripts are available in the ```*/var/script/```folder.
 
-**PSEUDOCODICE FUNZIONAMENTO SERVER**
+**SERVER OPERATION PSEUDOCODE**
 ``` Python
-WHILE socketaperta:
-  #metti in ascolto il server sulla in attesa di una connessione, e accettala all'arrivo
+WHILE socketopen:
+  #server waiting for a connection, and accept it when it arrives
   server.listen(...)
 
-  while ancoraQualcosaDaDire:
-     #genera un messaggio
+  while stillSomethingToSay:
+     #generate a message
      msg = generaMessaggio()
      
-     #codifica il messaggio per il CTC e mandalo al client
+     #encode the message for the CTC and send it to the client
      codificaEMandaMessaggio(msg)
 ```
 
 
-**PSEUDOCODICE FUNZIONAMENTO CLIENT**
+**CLIENT OPERATION PSEUDOCODE**
 ``` Python
-WHILE socketaperta:
-  #invia richiesta di connessione al server e rimani in attesa dell'accettazione
+WHILE socketopen:
+  #send connection request to the server and wait for acceptance
   client.connect(...)
 
-  while serverNonHaChiusoConnessione:
-     #recupera i pacchetti relativi al messaggio
+  while serverHasNotCloseConnection:
+     #retrieves packets related to the message
      pacchetti = recuperaPacchetti()
      
-     #costruisci stringa binaria considerando il tempo di interarrivo dei pacchetti
+     #construct binary string considering the packet interarrival time
      stringa_binaria = analizzaInterarrivoDeiPacchetti(pacchetti)
      
-     #recupera il messaggio del server
+     #retrieves the server message
      messaggio = conversioneInStringa(stringa_binaria) 
 ```
 
-Il mio lavoro di tesi si concentra sulla realizzazione di modelli di Intelligenza Artificiale (ML e DL) per l'identificazione dei CTC.
+My thesis work focuses on the creation of Artificial Intelligence models (ML and DL) for the identification of CTCs.<br>
+[Detecting CTC Attack in IoMT Communications using Deep Learning Approach](https://www.astesj.com/v08/i02/p15/)
